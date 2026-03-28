@@ -1,0 +1,101 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        # User Service Routes
+        - id: user-service-auth
+          uri: ${USER_SERVICE_URL:http://localhost:8081}
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - StripPrefix=0
+
+        - id: user-service-users
+          uri: ${USER_SERVICE_URL:http://localhost:8081}
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - StripPrefix=0
+
+        # Core Service Routes
+        - id: core-service-lands
+          uri: ${CORE_SERVICE_URL:http://localhost:8082}
+          predicates:
+            - Path=/api/lands/**
+          filters:
+            - StripPrefix=0
+
+        - id: core-service-vendors
+          uri: ${USER_SERVICE_URL:http://localhost:8081}
+          predicates:
+            - Path=/api/vendors/**
+          filters:
+            - StripPrefix=0
+
+        - id: core-service-drafts
+          uri: ${CORE_SERVICE_URL:http://localhost:8082}
+          predicates:
+            - Path=/api/drafts/**
+          filters:
+            - StripPrefix=0
+
+        - id: core-service-reviews
+          uri: ${CORE_SERVICE_URL:http://localhost:8082}
+          predicates:
+            - Path=/api/reviews/**
+          filters:
+            - StripPrefix=0
+
+        - id: core-service-saved-searches
+          uri: ${CORE_SERVICE_URL:http://localhost:8082}
+          predicates:
+            - Path=/api/saved-searches/**
+          filters:
+            - StripPrefix=0
+
+        # Payment Service Routes
+        - id: payment-service
+          uri: ${PAYMENT_SERVICE_URL:http://localhost:8083}
+          predicates:
+            - Path=/api/payments/**
+          filters:
+            - StripPrefix=0
+
+        - id: payment-service-subscriptions
+          uri: ${PAYMENT_SERVICE_URL:http://localhost:8083}
+          predicates:
+            - Path=/api/subscriptions/**
+          filters:
+            - StripPrefix=0
+
+        - id: payment-service-webhooks
+          uri: ${PAYMENT_SERVICE_URL:http://localhost:8083}
+          predicates:
+            - Path=/api/webhooks/**
+          filters:
+            - StripPrefix=0
+
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
+
+jwt:
+  secret: ${JWT_SECRET:veryLongSecretKeyForJwtTokenSigningThatIsAtLeast256BitsLongForHS256Algorithm2024}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway
+  endpoint:
+    gateway:
+      enabled: true
+
+logging:
+  level:
+    org.springframework.cloud.gateway: INFO
+    com.landgo.gateway: DEBUG
