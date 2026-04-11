@@ -24,7 +24,7 @@ spring:
 
         # Core Service Routes
         - id: core-service-lands
-          uri: ${CORE_SERVICE_URL:http://localhost:8082}
+          uri: ${CORE_SERVICE_URL:http://localhost:8083}
           predicates:
             - Path=/api/lands/**
           filters:
@@ -38,21 +38,21 @@ spring:
             - StripPrefix=0
 
         - id: core-service-drafts
-          uri: ${CORE_SERVICE_URL:http://localhost:8082}
+          uri: ${CORE_SERVICE_URL:http://localhost:8083}
           predicates:
             - Path=/api/drafts/**
           filters:
             - StripPrefix=0
 
         - id: core-service-reviews
-          uri: ${CORE_SERVICE_URL:http://localhost:8082}
+          uri: ${CORE_SERVICE_URL:http://localhost:8083}
           predicates:
             - Path=/api/reviews/**
           filters:
             - StripPrefix=0
 
         - id: core-service-saved-searches
-          uri: ${CORE_SERVICE_URL:http://localhost:8082}
+          uri: ${CORE_SERVICE_URL:http://localhost:8083}
           predicates:
             - Path=/api/saved-searches/**
           filters:
@@ -60,21 +60,21 @@ spring:
 
         # Payment Service Routes
         - id: payment-service
-          uri: ${PAYMENT_SERVICE_URL:http://localhost:8083}
+          uri: ${PAYMENT_SERVICE_URL:http://localhost:8082}
           predicates:
             - Path=/api/payments/**
           filters:
             - StripPrefix=0
 
         - id: payment-service-subscriptions
-          uri: ${PAYMENT_SERVICE_URL:http://localhost:8083}
+          uri: ${PAYMENT_SERVICE_URL:http://localhost:8082}
           predicates:
             - Path=/api/subscriptions/**
           filters:
             - StripPrefix=0
 
         - id: payment-service-webhooks
-          uri: ${PAYMENT_SERVICE_URL:http://localhost:8083}
+          uri: ${PAYMENT_SERVICE_URL:http://localhost:8082}
           predicates:
             - Path=/api/webhooks/**
           filters:
