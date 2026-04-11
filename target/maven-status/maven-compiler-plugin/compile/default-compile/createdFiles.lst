@@ -1,4 +1,0 @@
-com/landgo/gateway/config/RateLimiterConfig.class
-com/landgo/gateway/config/CorsConfig.class
-com/landgo/gateway/filter/JwtAuthenticationFilter.class
-com/landgo/gateway/ApiGatewayApplication.class
