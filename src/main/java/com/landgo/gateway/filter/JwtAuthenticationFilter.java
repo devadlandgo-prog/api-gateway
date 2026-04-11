@@ -29,15 +29,15 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
     private String jwtSecret;
 
     private static final List<String> PUBLIC_PATHS = List.of(
-            "/api/auth/login",
-            "/api/auth/register",
-            "/api/auth/verify-email",
-            "/api/auth/forgot-password",
-            "/api/auth/reset-password",
-            "/api/auth/refresh-token",
-            "/api/lands",
-            "/api/vendors",
-            "/api/reviews/professional/",
+            "/auth/login",
+            "/auth/register",
+            "/auth/verify",
+            "/auth/forgot-password",
+            "/auth/reset-password",
+            "/auth/refresh-token",
+            "/listings",
+            "/professionals",
+            "/professionals/",
             "/actuator",
             "/swagger-ui",
             "/v3/api-docs"
@@ -97,9 +97,8 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
     }
 
     private boolean isPublicReadPath(String path) {
-        return path.startsWith("/api/lands") ||
-               path.startsWith("/api/vendors") ||
-               path.startsWith("/api/reviews/professional/");
+        return path.startsWith("/listings") ||
+               path.startsWith("/professionals");
     }
 
     @Override

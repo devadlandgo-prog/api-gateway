@@ -11,14 +11,14 @@ spring:
         - id: user-service-auth
           uri: ${USER_SERVICE_URL:http://localhost:8081}
           predicates:
-            - Path=/api/auth/**
+            - Path=/auth/**
           filters:
             - StripPrefix=0
 
-        - id: user-service-users
+        - id: user-service-profile
           uri: ${USER_SERVICE_URL:http://localhost:8081}
           predicates:
-            - Path=/api/users/**
+            - Path=/profile/**,/users/me/**
           filters:
             - StripPrefix=0
 
@@ -26,35 +26,14 @@ spring:
         - id: core-service-lands
           uri: ${CORE_SERVICE_URL:http://localhost:8083}
           predicates:
-            - Path=/api/lands/**
+            - Path=/listings/**
           filters:
             - StripPrefix=0
 
-        - id: core-service-vendors
-          uri: ${USER_SERVICE_URL:http://localhost:8081}
-          predicates:
-            - Path=/api/vendors/**
-          filters:
-            - StripPrefix=0
-
-        - id: core-service-drafts
+        - id: core-service-professionals
           uri: ${CORE_SERVICE_URL:http://localhost:8083}
           predicates:
-            - Path=/api/drafts/**
-          filters:
-            - StripPrefix=0
-
-        - id: core-service-reviews
-          uri: ${CORE_SERVICE_URL:http://localhost:8083}
-          predicates:
-            - Path=/api/reviews/**
-          filters:
-            - StripPrefix=0
-
-        - id: core-service-saved-searches
-          uri: ${CORE_SERVICE_URL:http://localhost:8083}
-          predicates:
-            - Path=/api/saved-searches/**
+            - Path=/professionals/**
           filters:
             - StripPrefix=0
 
@@ -62,21 +41,21 @@ spring:
         - id: payment-service
           uri: ${PAYMENT_SERVICE_URL:http://localhost:8082}
           predicates:
-            - Path=/api/payments/**
+            - Path=/payments/**
           filters:
             - StripPrefix=0
 
         - id: payment-service-subscriptions
           uri: ${PAYMENT_SERVICE_URL:http://localhost:8082}
           predicates:
-            - Path=/api/subscriptions/**
+            - Path=/subscriptions/**
           filters:
             - StripPrefix=0
 
         - id: payment-service-webhooks
           uri: ${PAYMENT_SERVICE_URL:http://localhost:8082}
           predicates:
-            - Path=/api/webhooks/**
+            - Path=/webhooks/**
           filters:
             - StripPrefix=0
 
