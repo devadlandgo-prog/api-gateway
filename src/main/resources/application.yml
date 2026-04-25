@@ -58,6 +58,27 @@ spring:
             - Path=/webhooks/**
           filters:
             - StripPrefix=0
+        # Documentation & Health Routes (Unified Entry Point)
+        - id: user-service-docs
+          uri: ${USER_SERVICE_URL:http://localhost:8081}
+          predicates:
+            - Path=/user-service/v3/api-docs/**,/user-service/actuator/health
+          filters:
+            - RewritePath=/user-service/(?<segment>.*), /${segment}
+
+        - id: core-service-docs
+          uri: ${CORE_SERVICE_URL:http://localhost:8083}
+          predicates:
+            - Path=/core-service/v3/api-docs/**,/core-service/actuator/health
+          filters:
+            - RewritePath=/core-service/(?<segment>.*), /${segment}
+
+        - id: payment-service-docs
+          uri: ${PAYMENT_SERVICE_URL:http://localhost:8082}
+          predicates:
+            - Path=/payment-service/v3/api-docs/**,/payment-service/actuator/health
+          filters:
+            - RewritePath=/payment-service/(?<segment>.*), /${segment}
 
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
