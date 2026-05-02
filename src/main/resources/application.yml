@@ -11,46 +11,60 @@ spring:
         - id: user-service-auth
           uri: ${USER_SERVICE_URL:http://localhost:8081}
           predicates:
-            - Path=/auth/**
+            - Path=/api/auth/**, /auth/**
           filters:
-            - StripPrefix=0
+            - RewritePath=/api/(?<segment>.*), /${segment}
 
         - id: user-service-profile
           uri: ${USER_SERVICE_URL:http://localhost:8081}
           predicates:
-            - Path=/profile/**,/users/me/**
+            - Path=/api/profile/**, /profile/**, /api/users/me/**, /users/me/**, /api/user/**, /user/**
           filters:
-            - StripPrefix=0
+            - RewritePath=/api/(?<segment>.*), /${segment}
+
+        - id: user-service-notifications
+          uri: ${USER_SERVICE_URL:http://localhost:8081}
+          predicates:
+            - Path=/api/notifications/**, /notifications/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /${segment}
 
         # Core Service Routes
+        - id: core-service-global
+          uri: ${CORE_SERVICE_URL:http://localhost:8083}
+          predicates:
+            - Path=/api/locations/**, /locations/**, /api/filter-options, /filter-options
+          filters:
+            - RewritePath=/api/(?<segment>.*), /${segment}
+
         - id: core-service-lands
           uri: ${CORE_SERVICE_URL:http://localhost:8083}
           predicates:
-            - Path=/listings/**
+            - Path=/api/listings/**, /listings/**
           filters:
-            - StripPrefix=0
+            - RewritePath=/api/(?<segment>.*), /${segment}
 
         - id: core-service-professionals
           uri: ${CORE_SERVICE_URL:http://localhost:8083}
           predicates:
-            - Path=/professionals/**
+            - Path=/api/professionals/**, /professionals/**
           filters:
-            - StripPrefix=0
+            - RewritePath=/api/(?<segment>.*), /${segment}
 
         # Payment Service Routes
         - id: payment-service
           uri: ${PAYMENT_SERVICE_URL:http://localhost:8082}
           predicates:
-            - Path=/payments/**
+            - Path=/api/payments/**, /payments/**, /api/payment/**, /payment/**, /api/transactions/**, /transactions/**
           filters:
-            - StripPrefix=0
+            - RewritePath=/api/(?<segment>.*), /${segment}
 
         - id: payment-service-subscriptions
           uri: ${PAYMENT_SERVICE_URL:http://localhost:8082}
           predicates:
-            - Path=/subscriptions/**
+            - Path=/api/subscriptions/**, /subscriptions/**
           filters:
-            - StripPrefix=0
+            - RewritePath=/api/(?<segment>.*), /${segment}
 
         - id: payment-service-webhooks
           uri: ${PAYMENT_SERVICE_URL:http://localhost:8082}
@@ -58,6 +72,13 @@ spring:
             - Path=/webhooks/**
           filters:
             - StripPrefix=0
+
+        - id: api-ping
+          uri: http://localhost:8080
+          predicates:
+            - Path=/api/ping
+          filters:
+            - RewritePath=/api/ping, /actuator/health
         # Documentation & Health Routes (Unified Entry Point)
         - id: user-service-docs
           uri: ${USER_SERVICE_URL:http://localhost:8081}
