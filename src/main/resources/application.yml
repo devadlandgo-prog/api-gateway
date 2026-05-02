@@ -102,7 +102,7 @@ spring:
             - RewritePath=/payment-service/(?<segment>.*), /${segment}
 
       default-filters:
-        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin, RETAIN_FIRST
 
 jwt:
   secret: ${JWT_SECRET:veryLongSecretKeyForJwtTokenSigningThatIsAtLeast256BitsLongForHS256Algorithm2024}
