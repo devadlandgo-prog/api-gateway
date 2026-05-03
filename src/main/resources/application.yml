@@ -47,8 +47,10 @@ spring:
         - id: core-service-professionals
           uri: ${CORE_SERVICE_URL:http://localhost:8083}
           predicates:
-            - Path=/api/professionals/**, /professionals/**
+            - Path=/api/professionals/**, /professionals/**, /api/expertise, /expertise
           filters:
+            - RewritePath=/api/expertise, /professionals/expertise
+            - RewritePath=/expertise, /professionals/expertise
             - RewritePath=/api/(?<segment>.*), /${segment}
 
         # Payment Service Routes
