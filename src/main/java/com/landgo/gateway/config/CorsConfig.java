@@ -18,7 +18,7 @@ public class CorsConfig {
         config.addAllowedMethod("*");                // Allow GET, POST, PUT, PATCH, DELETE, OPTIONS
         config.addAllowedHeader("*");                // Allow all headers
         config.setExposedHeaders(Collections.singletonList("*")); // Expose all response headers
-        config.setAllowCredentials(false);           // Must be false when origin is *
+        config.setAllowCredentials(true);
         config.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

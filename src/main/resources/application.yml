@@ -47,7 +47,21 @@ spring:
         - id: core-service-professionals
           uri: ${CORE_SERVICE_URL:http://localhost:8083}
           predicates:
-            - Path=/api/professionals/**, /api/expertise
+            - Path=/api/professionals/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /${segment}
+
+        - id: core-service-expertise-alias
+          uri: ${CORE_SERVICE_URL:http://localhost:8083}
+          predicates:
+            - Path=/api/expertise
+          filters:
+            - RewritePath=/api/expertise, /professionals/expertise
+
+        - id: core-service-enquiries
+          uri: ${CORE_SERVICE_URL:http://localhost:8083}
+          predicates:
+            - Path=/api/enquiries/**
           filters:
             - RewritePath=/api/(?<segment>.*), /${segment}
 
