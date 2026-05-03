@@ -11,21 +11,21 @@ spring:
         - id: user-service-auth
           uri: ${USER_SERVICE_URL:http://localhost:8081}
           predicates:
-            - Path=/api/auth/**, /auth/**
+            - Path=/api/auth/**
           filters:
             - RewritePath=/api/(?<segment>.*), /${segment}
 
         - id: user-service-profile
           uri: ${USER_SERVICE_URL:http://localhost:8081}
           predicates:
-            - Path=/api/profile/**, /profile/**, /api/users/**, /users/**, /api/user/**, /user/**
+            - Path=/api/profile/**, /api/users/**, /api/user/**
           filters:
             - RewritePath=/api/(?<segment>.*), /${segment}
 
         - id: user-service-notifications
           uri: ${USER_SERVICE_URL:http://localhost:8081}
           predicates:
-            - Path=/api/notifications/**, /notifications/**
+            - Path=/api/notifications/**
           filters:
             - RewritePath=/api/(?<segment>.*), /${segment}
 
@@ -33,38 +33,36 @@ spring:
         - id: core-service-global
           uri: ${CORE_SERVICE_URL:http://localhost:8083}
           predicates:
-            - Path=/api/locations/**, /locations/**, /api/filter-options, /filter-options
+            - Path=/api/locations/**, /api/filter-options
           filters:
             - RewritePath=/api/(?<segment>.*), /${segment}
 
         - id: core-service-lands
           uri: ${CORE_SERVICE_URL:http://localhost:8083}
           predicates:
-            - Path=/api/listings/**, /listings/**
+            - Path=/api/listings/**
           filters:
             - RewritePath=/api/(?<segment>.*), /${segment}
 
         - id: core-service-professionals
           uri: ${CORE_SERVICE_URL:http://localhost:8083}
           predicates:
-            - Path=/api/professionals/**, /professionals/**, /api/expertise, /expertise
+            - Path=/api/professionals/**, /api/expertise
           filters:
-            - RewritePath=/api/expertise, /professionals/expertise
-            - RewritePath=/expertise, /professionals/expertise
             - RewritePath=/api/(?<segment>.*), /${segment}
 
         # Payment Service Routes
         - id: payment-service
           uri: ${PAYMENT_SERVICE_URL:http://localhost:8082}
           predicates:
-            - Path=/api/payments/**, /payments/**, /api/payment/**, /payment/**, /api/transactions/**, /transactions/**
+            - Path=/api/payments/**, /api/payment/**, /api/transactions/**
           filters:
             - RewritePath=/api/(?<segment>.*), /${segment}
 
         - id: payment-service-subscriptions
           uri: ${PAYMENT_SERVICE_URL:http://localhost:8082}
           predicates:
-            - Path=/api/subscriptions/**, /subscriptions/**
+            - Path=/api/subscriptions/**
           filters:
             - RewritePath=/api/(?<segment>.*), /${segment}
 
