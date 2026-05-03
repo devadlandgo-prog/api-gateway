@@ -18,7 +18,7 @@ spring:
         - id: user-service-profile
           uri: ${USER_SERVICE_URL:http://localhost:8081}
           predicates:
-            - Path=/api/profile/**, /profile/**, /api/users/me/**, /users/me/**, /api/user/**, /user/**
+            - Path=/api/profile/**, /profile/**, /api/users/**, /users/**, /api/user/**, /user/**
           filters:
             - RewritePath=/api/(?<segment>.*), /${segment}
 
