@@ -93,12 +93,13 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
     }
 
     private boolean isPublicPath(String path) {
-        return PUBLIC_PATHS.stream().anyMatch(path::startsWith);
+        String cleanPath = path.startsWith("/api") ? path.substring(4) : path;
+        return PUBLIC_PATHS.stream().anyMatch(cleanPath::startsWith);
     }
 
     private boolean isPublicReadPath(String path) {
-        return path.startsWith("/listings") ||
-               path.startsWith("/professionals");
+        String cleanPath = path.startsWith("/api") ? path.substring(4) : path;
+        return cleanPath.startsWith("/listings") || cleanPath.startsWith("/professionals");
     }
 
     @Override
