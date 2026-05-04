@@ -7,7 +7,6 @@ spring:
   cloud:
     gateway:
       routes:
-        # User Service Routes
         - id: user-service-auth
           uri: ${USER_SERVICE_URL:http://localhost:8081}
           predicates:
@@ -29,7 +28,6 @@ spring:
           filters:
             - RewritePath=/api/(?<segment>.*), /${segment}
 
-        # Core Service Routes
         - id: core-service-global
           uri: ${CORE_SERVICE_URL:http://localhost:8083}
           predicates:
@@ -65,7 +63,6 @@ spring:
           filters:
             - RewritePath=/api/(?<segment>.*), /${segment}
 
-        # Payment Service Routes
         - id: payment-service
           uri: ${PAYMENT_SERVICE_URL:http://localhost:8082}
           predicates:
@@ -93,19 +90,11 @@ spring:
             - Path=/api/ping
           filters:
             - RewritePath=/api/ping, /actuator/health
-        # Documentation & Health Routes (Unified Entry Point)
+
         - id: user-service-docs
           uri: ${USER_SERVICE_URL:http://localhost:8081}
           predicates:
             - Path=/user-service/v3/api-docs/**,/user-service/actuator/health
-
-logging:
-  level:
-    root: INFO
-    com.landgo: DEBUG
-    org.springframework.cloud.gateway: INFO
-    org.springframework.http.server.reactive: INFO
-    org.springframework.web.reactive: INFO
           filters:
             - RewritePath=/user-service/(?<segment>.*), /${segment}
 
@@ -140,5 +129,8 @@ management:
 
 logging:
   level:
+    root: INFO
+    com.landgo.gateway: INFO
     org.springframework.cloud.gateway: INFO
-    com.landgo.gateway: DEBUG
+    org.springframework.http.server.reactive: INFO
+    org.springframework.web.reactive: INFO

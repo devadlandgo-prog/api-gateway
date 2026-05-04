@@ -60,6 +60,7 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
 
         String authHeader = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            log.info("Rejecting request without bearer token: method={} path={}", request.getMethod(), path);
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
@@ -86,7 +87,7 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
 
             return chain.filter(exchange.mutate().request(modifiedRequest).build());
         } catch (Exception e) {
-            log.warn("Invalid JWT token: {}", e.getMessage());
+            log.warn("Invalid JWT token for path {}: {}", path, e.getMessage());
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
