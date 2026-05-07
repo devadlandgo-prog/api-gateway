@@ -7,63 +7,66 @@ spring:
   cloud:
     gateway:
       routes:
-        # User Service Routes
-        - id: user-service-auth
+        # USER SERVICE ROUTES
+        - id: user-service
           uri: ${USER_SERVICE_URL:http://localhost:8081}
           predicates:
-            - Path=/auth/**
+            - Path=/user/**
           filters:
-            - StripPrefix=0
+            - RewritePath=/user/(?<segment>.*), /${segment}
 
-        - id: user-service-profile
-          uri: ${USER_SERVICE_URL:http://localhost:8081}
+        # CORE SERVICE ROUTES  
+        - id: core-service
+          uri: ${CORE_SERVICE_URL:http://localhost:8082}
           predicates:
-            - Path=/profile/**,/users/me/**
+            - Path=/core/**
           filters:
-            - StripPrefix=0
+            - RewritePath=/core/(?<segment>.*), /${segment}
 
-        # Core Service Routes
-        - id: core-service-lands
-          uri: ${CORE_SERVICE_URL:http://localhost:8083}
-          predicates:
-            - Path=/listings/**
-          filters:
-            - StripPrefix=0
-
-        - id: core-service-professionals
-          uri: ${CORE_SERVICE_URL:http://localhost:8083}
-          predicates:
-            - Path=/professionals/**
-          filters:
-            - StripPrefix=0
-
-        # Payment Service Routes
+        # PAYMENT SERVICE ROUTES
         - id: payment-service
-          uri: ${PAYMENT_SERVICE_URL:http://localhost:8082}
+          uri: ${PAYMENT_SERVICE_URL:http://localhost:8083}
           predicates:
-            - Path=/payments/**
+            - Path=/payment/**
           filters:
-            - StripPrefix=0
+            - RewritePath=/payment/(?<segment>.*), /${segment}
 
-        - id: payment-service-subscriptions
-          uri: ${PAYMENT_SERVICE_URL:http://localhost:8082}
+        # HEALTH CHECK
+        - id: api-ping
+          uri: http://localhost:8080
           predicates:
-            - Path=/subscriptions/**
+            - Path=/api/ping
           filters:
-            - StripPrefix=0
+            - RewritePath=/api/ping, /actuator/health
 
-        - id: payment-service-webhooks
-          uri: ${PAYMENT_SERVICE_URL:http://localhost:8082}
+        # SERVICE DOCS (Optional - keep for backward compatibility during transition)
+        - id: user-service-docs
+          uri: ${USER_SERVICE_URL:http://localhost:8081}
           predicates:
-            - Path=/webhooks/**
+            - Path=/user-service/v3/api-docs/**
           filters:
-            - StripPrefix=0
+            - RewritePath=/user-service/(?<segment>.*), /${segment}
+
+        - id: core-service-docs
+          uri: ${CORE_SERVICE_URL:http://localhost:8082}
+          predicates:
+            - Path=/core-service/v3/api-docs/**
+          filters:
+            - RewritePath=/core-service/(?<segment>.*), /${segment}
+
+        - id: payment-service-docs
+          uri: ${PAYMENT_SERVICE_URL:http://localhost:8083}
+          predicates:
+            - Path=/payment-service/v3/api-docs/**
+          filters:
+            - RewritePath=/payment-service/(?<segment>.*), /${segment}
 
       default-filters:
-        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin, RETAIN_FIRST
 
-jwt:
-  secret: ${JWT_SECRET:veryLongSecretKeyForJwtTokenSigningThatIsAtLeast256BitsLongForHS256Algorithm2024}
+app:
+  jwt:
+    secret: ${JWT_SECRET:myVeryLongSecretKeyThatIsAtLeast256BitsForHS256Algorithm2024!}
 
 management:
   endpoints:
@@ -76,5 +79,8 @@ management:
 
 logging:
   level:
+    root: INFO
+    com.landgo.gateway: INFO
     org.springframework.cloud.gateway: INFO
-    com.landgo.gateway: DEBUG
+    org.springframework.http.server.reactive: INFO
+    org.springframework.web.reactive: INFO
