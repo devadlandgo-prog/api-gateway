@@ -25,22 +25,27 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
 
     private static final Logger log = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
-    @Value("${jwt.secret}")
+    @Value("${app.jwt.secret}")
     private String jwtSecret;
 
     private static final List<String> PUBLIC_PATHS = List.of(
-            "/auth/login",
-            "/auth/register",
-            "/auth/verify",
-            "/auth/forgot-password",
-            "/auth/reset-password",
-            "/auth/refresh-token",
-            "/listings",
-            "/professionals",
-            "/professionals/",
+            "/user/auth/login",
+            "/user/auth/register",
+            "/user/auth/verify",
+            "/user/auth/forgot-password",
+            "/user/auth/reset-password",
+            "/user/auth/refresh-token",
+            "/user/public/",
+            "/core/listings",
+            "/core/professionals",
+            "/core/professionals/",
+            "/core/locations",
+            "/core/filter-options",
+            "/core/reviews",
             "/actuator",
             "/swagger-ui",
-            "/v3/api-docs"
+            "/v3/api-docs",
+            "/api/ping"
     );
 
     @Override
@@ -67,6 +72,7 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
 
         String token = authHeader.substring(7);
         try {
+            log.debug("JWT validation attempt for path: {}, secret length: {}", path, jwtSecret != null ? jwtSecret.length() : "null");
             SecretKey key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
             Claims claims = Jwts.parser()
                     .verifyWith(key)
@@ -74,37 +80,42 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
                     .parseSignedClaims(token)
                     .getPayload();
 
+            log.debug("JWT validation successful for path: {}, method: {}", path, request.getMethod().name());
+
             String userId = claims.getSubject();
             String email = claims.get("email", String.class);
             String role = claims.get("role", String.class);
 
-            // Forward user context as headers to downstream services
-            ServerHttpRequest modifiedRequest = request.mutate()
+            // Add user info to request headers
+            ServerHttpRequest mutatedRequest = request.mutate()
                     .header("X-User-Id", userId)
                     .header("X-User-Email", email != null ? email : "")
-                    .header("X-User-Role", role != null ? role : "")
+                    .header("X-User-Role", role)
                     .build();
 
-            return chain.filter(exchange.mutate().request(modifiedRequest).build());
+            return chain.filter(exchange.mutate().request(mutatedRequest).build());
+
         } catch (Exception e) {
-            log.warn("Invalid JWT token for path {}: {}", path, e.getMessage());
+            log.warn("Invalid JWT token: {}", e.getMessage());
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
     }
 
     private boolean isPublicPath(String path) {
-        String cleanPath = path.startsWith("/api") ? path.substring(4) : path;
-        return PUBLIC_PATHS.stream().anyMatch(cleanPath::startsWith);
+        return PUBLIC_PATHS.stream().anyMatch(path::startsWith);
     }
 
     private boolean isPublicReadPath(String path) {
-        String cleanPath = path.startsWith("/api") ? path.substring(4) : path;
-        return cleanPath.startsWith("/listings") || cleanPath.startsWith("/professionals");
+        return path.startsWith("/core/listings") ||
+               path.startsWith("/core/professionals") ||
+               path.startsWith("/core/locations") ||
+               path.startsWith("/core/filter-options") ||
+               path.startsWith("/core/reviews");
     }
 
     @Override
     public int getOrder() {
-        return -1;
+        return -100;
     }
 }
