@@ -7,83 +7,31 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: user-service-auth
+        # USER SERVICE ROUTES
+        - id: user-service
           uri: ${USER_SERVICE_URL:http://localhost:8081}
           predicates:
-            - Path=/api/auth/**
+            - Path=/user/**
           filters:
-            - RewritePath=/api/(?<segment>.*), /${segment}
+            - RewritePath=/user/(?<segment>.*), /${segment}
 
-        - id: user-service-profile
-          uri: ${USER_SERVICE_URL:http://localhost:8081}
+        # CORE SERVICE ROUTES  
+        - id: core-service
+          uri: ${CORE_SERVICE_URL:http://localhost:8082}
           predicates:
-            - Path=/api/profile/**, /api/users/**, /api/user/**
+            - Path=/core/**
           filters:
-            - RewritePath=/api/(?<segment>.*), /${segment}
+            - RewritePath=/core/(?<segment>.*), /${segment}
 
-        - id: user-service-notifications
-          uri: ${USER_SERVICE_URL:http://localhost:8081}
-          predicates:
-            - Path=/api/notifications/**
-          filters:
-            - RewritePath=/api/(?<segment>.*), /${segment}
-
-        - id: core-service-global
-          uri: ${CORE_SERVICE_URL:http://localhost:8083}
-          predicates:
-            - Path=/api/locations/**, /api/filter-options
-          filters:
-            - RewritePath=/api/(?<segment>.*), /${segment}
-
-        - id: core-service-lands
-          uri: ${CORE_SERVICE_URL:http://localhost:8083}
-          predicates:
-            - Path=/api/listings/**
-          filters:
-            - RewritePath=/api/(?<segment>.*), /${segment}
-
-        - id: core-service-professionals
-          uri: ${CORE_SERVICE_URL:http://localhost:8083}
-          predicates:
-            - Path=/api/professionals/**
-          filters:
-            - RewritePath=/api/(?<segment>.*), /${segment}
-
-        - id: core-service-expertise-alias
-          uri: ${CORE_SERVICE_URL:http://localhost:8083}
-          predicates:
-            - Path=/api/expertise
-          filters:
-            - RewritePath=/api/expertise, /professionals/expertise
-
-        - id: core-service-enquiries
-          uri: ${CORE_SERVICE_URL:http://localhost:8083}
-          predicates:
-            - Path=/api/enquiries/**
-          filters:
-            - RewritePath=/api/(?<segment>.*), /${segment}
-
+        # PAYMENT SERVICE ROUTES
         - id: payment-service
-          uri: ${PAYMENT_SERVICE_URL:http://localhost:8082}
+          uri: ${PAYMENT_SERVICE_URL:http://localhost:8083}
           predicates:
-            - Path=/api/payments/**, /api/payment/**, /api/transactions/**
+            - Path=/payment/**
           filters:
-            - RewritePath=/api/(?<segment>.*), /${segment}
+            - RewritePath=/payment/(?<segment>.*), /${segment}
 
-        - id: payment-service-subscriptions
-          uri: ${PAYMENT_SERVICE_URL:http://localhost:8082}
-          predicates:
-            - Path=/api/subscriptions/**
-          filters:
-            - RewritePath=/api/(?<segment>.*), /${segment}
-
-        - id: payment-service-webhooks
-          uri: ${PAYMENT_SERVICE_URL:http://localhost:8082}
-          predicates:
-            - Path=/webhooks/**
-          filters:
-            - StripPrefix=0
-
+        # HEALTH CHECK
         - id: api-ping
           uri: http://localhost:8080
           predicates:
@@ -91,32 +39,34 @@ spring:
           filters:
             - RewritePath=/api/ping, /actuator/health
 
+        # SERVICE DOCS (Optional - keep for backward compatibility during transition)
         - id: user-service-docs
           uri: ${USER_SERVICE_URL:http://localhost:8081}
           predicates:
-            - Path=/user-service/v3/api-docs/**,/user-service/actuator/health
+            - Path=/user-service/v3/api-docs/**
           filters:
             - RewritePath=/user-service/(?<segment>.*), /${segment}
 
         - id: core-service-docs
-          uri: ${CORE_SERVICE_URL:http://localhost:8083}
+          uri: ${CORE_SERVICE_URL:http://localhost:8082}
           predicates:
-            - Path=/core-service/v3/api-docs/**,/core-service/actuator/health
+            - Path=/core-service/v3/api-docs/**
           filters:
             - RewritePath=/core-service/(?<segment>.*), /${segment}
 
         - id: payment-service-docs
-          uri: ${PAYMENT_SERVICE_URL:http://localhost:8082}
+          uri: ${PAYMENT_SERVICE_URL:http://localhost:8083}
           predicates:
-            - Path=/payment-service/v3/api-docs/**,/payment-service/actuator/health
+            - Path=/payment-service/v3/api-docs/**
           filters:
             - RewritePath=/payment-service/(?<segment>.*), /${segment}
 
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin, RETAIN_FIRST
 
-jwt:
-  secret: ${JWT_SECRET:veryLongSecretKeyForJwtTokenSigningThatIsAtLeast256BitsLongForHS256Algorithm2024}
+app:
+  jwt:
+    secret: ${JWT_SECRET:myVeryLongSecretKeyThatIsAtLeast256BitsForHS256Algorithm2024!}
 
 management:
   endpoints:
