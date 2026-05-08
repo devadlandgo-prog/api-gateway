@@ -1,0 +1,57 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------------< com.landgo:api-gateway >-----------------------
+[INFO] Building api-gateway 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.2.3:run (default-cli) > test-compile @ api-gateway >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api-gateway ---
+[INFO] Copying 3 resources from src/main/resources to target/classes
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ api-gateway ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api-gateway ---
+[INFO] skip non existing resourceDirectory /Users/himanshuray/Desktop/LandGo/api-gateway/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ api-gateway ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] <<< spring-boot:3.2.3:run (default-cli) < test-compile @ api-gateway <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.2.3:run (default-cli) @ api-gateway ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+[32m :: Spring Boot :: [39m              [2m (v3.2.3)[0;39m
+
+[2m2026-05-09T00:19:49.633+05:30[0;39m [32m INFO[0;39m [35m79273[0;39m [2m---[0;39m [2m[api-gateway] [           main][0;39m [2m[0;39m[36mc.landgo.gateway.ApiGatewayApplication  [0;39m [2m:[0;39m Starting ApiGatewayApplication using Java 23.0.2 with PID 79273 (/Users/himanshuray/Desktop/LandGo/api-gateway/target/classes started by himanshuray in /Users/himanshuray/Desktop/LandGo/api-gateway)
+[2m2026-05-09T00:19:49.634+05:30[0;39m [32m INFO[0;39m [35m79273[0;39m [2m---[0;39m [2m[api-gateway] [           main][0;39m [2m[0;39m[36mc.landgo.gateway.ApiGatewayApplication  [0;39m [2m:[0;39m No active profile set, falling back to 1 default profile: "default"
+[2m2026-05-09T00:19:50.253+05:30[0;39m [32m INFO[0;39m [35m79273[0;39m [2m---[0;39m [2m[api-gateway] [           main][0;39m [2m[0;39m[36mo.s.cloud.context.scope.GenericScope    [0;39m [2m:[0;39m BeanFactory id=d06c2638-c6ac-3193-93fa-a9b094e4bf20
+[2m2026-05-09T00:19:50.770+05:30[0;39m [32m INFO[0;39m [35m79273[0;39m [2m---[0;39m [2m[api-gateway] [           main][0;39m [2m[0;39m[36mo.s.c.g.r.RouteDefinitionRouteLocator   [0;39m [2m:[0;39m Loaded RoutePredicateFactory [After]
+[2m2026-05-09T00:19:50.770+05:30[0;39m [32m INFO[0;39m [35m79273[0;39m [2m---[0;39m [2m[api-gateway] [           main][0;39m [2m[0;39m[36mo.s.c.g.r.RouteDefinitionRouteLocator   [0;39m [2m:[0;39m Loaded RoutePredicateFactory [Before]
+[2m2026-05-09T00:19:50.770+05:30[0;39m [32m INFO[0;39m [35m79273[0;39m [2m---[0;39m [2m[api-gateway] [           main][0;39m [2m[0;39m[36mo.s.c.g.r.RouteDefinitionRouteLocator   [0;39m [2m:[0;39m Loaded RoutePredicateFactory [Between]
+[2m2026-05-09T00:19:50.770+05:30[0;39m [32m INFO[0;39m [35m79273[0;39m [2m---[0;39m [2m[api-gateway] [           main][0;39m [2m[0;39m[36mo.s.c.g.r.RouteDefinitionRouteLocator   [0;39m [2m:[0;39m Loaded RoutePredicateFactory [Cookie]
+[2m2026-05-09T00:19:50.771+05:30[0;39m [32m INFO[0;39m [35m79273[0;39m [2m---[0;39m [2m[api-gateway] [           main][0;39m [2m[0;39m[36mo.s.c.g.r.RouteDefinitionRouteLocator   [0;39m [2m:[0;39m Loaded RoutePredicateFactory [Header]
+[2m2026-05-09T00:19:50.771+05:30[0;39m [32m INFO[0;39m [35m79273[0;39m [2m---[0;39m [2m[api-gateway] [           main][0;39m [2m[0;39m[36mo.s.c.g.r.RouteDefinitionRouteLocator   [0;39m [2m:[0;39m Loaded RoutePredicateFactory [Host]
+[2m2026-05-09T00:19:50.771+05:30[0;39m [32m INFO[0;39m [35m79273[0;39m [2m---[0;39m [2m[api-gateway] [           main][0;39m [2m[0;39m[36mo.s.c.g.r.RouteDefinitionRouteLocator   [0;39m [2m:[0;39m Loaded RoutePredicateFactory [Method]
+[2m2026-05-09T00:19:50.771+05:30[0;39m [32m INFO[0;39m [35m79273[0;39m [2m---[0;39m [2m[api-gateway] [           main][0;39m [2m[0;39m[36mo.s.c.g.r.RouteDefinitionRouteLocator   [0;39m [2m:[0;39m Loaded RoutePredicateFactory [Path]
+[2m2026-05-09T00:19:50.771+05:30[0;39m [32m INFO[0;39m [35m79273[0;39m [2m---[0;39m [2m[api-gateway] [           main][0;39m [2m[0;39m[36mo.s.c.g.r.RouteDefinitionRouteLocator   [0;39m [2m:[0;39m Loaded RoutePredicateFactory [Query]
+[2m2026-05-09T00:19:50.771+05:30[0;39m [32m INFO[0;39m [35m79273[0;39m [2m---[0;39m [2m[api-gateway] [           main][0;39m [2m[0;39m[36mo.s.c.g.r.RouteDefinitionRouteLocator   [0;39m [2m:[0;39m Loaded RoutePredicateFactory [ReadBody]
+[2m2026-05-09T00:19:50.771+05:30[0;39m [32m INFO[0;39m [35m79273[0;39m [2m---[0;39m [2m[api-gateway] [           main][0;39m [2m[0;39m[36mo.s.c.g.r.RouteDefinitionRouteLocator   [0;39m [2m:[0;39m Loaded RoutePredicateFactory [RemoteAddr]
+[2m2026-05-09T00:19:50.771+05:30[0;39m [32m INFO[0;39m [35m79273[0;39m [2m---[0;39m [2m[api-gateway] [           main][0;39m [2m[0;39m[36mo.s.c.g.r.RouteDefinitionRouteLocator   [0;39m [2m:[0;39m Loaded RoutePredicateFactory [XForwardedRemoteAddr]
+[2m2026-05-09T00:19:50.771+05:30[0;39m [32m INFO[0;39m [35m79273[0;39m [2m---[0;39m [2m[api-gateway] [           main][0;39m [2m[0;39m[36mo.s.c.g.r.RouteDefinitionRouteLocator   [0;39m [2m:[0;39m Loaded RoutePredicateFactory [Weight]
+[2m2026-05-09T00:19:50.771+05:30[0;39m [32m INFO[0;39m [35m79273[0;39m [2m---[0;39m [2m[api-gateway] [           main][0;39m [2m[0;39m[36mo.s.c.g.r.RouteDefinitionRouteLocator   [0;39m [2m:[0;39m Loaded RoutePredicateFactory [CloudFoundryRouteService]
+[2m2026-05-09T00:19:50.871+05:30[0;39m [32m INFO[0;39m [35m79273[0;39m [2m---[0;39m [2m[api-gateway] [           main][0;39m [2m[0;39m[36mo.s.b.a.e.web.EndpointLinksResolver     [0;39m [2m:[0;39m Exposing 3 endpoint(s) beneath base path '/actuator'
+[2m2026-05-09T00:19:51.068+05:30[0;39m [32m INFO[0;39m [35m79273[0;39m [2m---[0;39m [2m[api-gateway] [           main][0;39m [2m[0;39m[36mo.s.b.web.embedded.netty.NettyWebServer [0;39m [2m:[0;39m Netty started on port 8080
+[2m2026-05-09T00:19:51.121+05:30[0;39m [32m INFO[0;39m [35m79273[0;39m [2m---[0;39m [2m[api-gateway] [           main][0;39m [2m[0;39m[36mc.landgo.gateway.ApiGatewayApplication  [0;39m [2m:[0;39m Started ApiGatewayApplication in 1.786 seconds (process running for 2.043)
+[2m2026-05-09T00:20:09.975+05:30[0;39m [31mERROR[0;39m [35m79273[0;39m [2m---[0;39m [2m[api-gateway] [ctor-http-nio-2][0;39m [2m[0;39m[36mi.n.r.d.DnsServerAddressStreamProviders [0;39m [2m:[0;39m Unable to load io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS. Check whether you have a dependency on 'io.netty:netty-resolver-dns-native-macos'. Use DEBUG level to see the full stack: java.lang.UnsatisfiedLinkError: failed to load the required native library
