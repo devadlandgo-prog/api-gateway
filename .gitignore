@@ -1,6 +1,5 @@
 target/
 *.class
-.mvn/
 .idea/
 *.iml
 .DS_Store
