@@ -2,6 +2,8 @@ server:
   port: 8080
 
 spring:
+  liquibase:
+    drop-first: true
   application:
     name: api-gateway
   cloud:
