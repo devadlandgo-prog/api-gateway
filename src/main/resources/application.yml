@@ -3,7 +3,7 @@ server:
 
 spring:
   liquibase:
-    drop-first: true
+    drop-first: false
   application:
     name: api-gateway
   cloud:
