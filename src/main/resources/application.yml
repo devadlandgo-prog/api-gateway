@@ -15,7 +15,7 @@ spring:
           predicates:
             - Path=/user/**
           filters:
-            - RewritePath=/user/(?<segment>.*), /${segment}
+            - RewritePath=/user/(?<segment>.*),/${segment}
 
         # CORE SERVICE ROUTES  
         - id: core-service
@@ -23,7 +23,7 @@ spring:
           predicates:
             - Path=/core/**
           filters:
-            - RewritePath=/core/(?<segment>.*), /${segment}
+            - RewritePath=/core/(?<segment>.*),/${segment}
 
         # PAYMENT SERVICE ROUTES
         - id: payment-service
@@ -31,7 +31,7 @@ spring:
           predicates:
             - Path=/payment/**
           filters:
-            - RewritePath=/payment/(?<segment>.*), /${segment}
+            - RewritePath=/payment/(?<segment>.*),/${segment}
 
         # HEALTH CHECK
         - id: api-ping
