@@ -45,6 +45,7 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
             "/actuator",
             "/swagger-ui",
             "/v3/api-docs",
+            "/payment/webhook",
             "/api/ping"
     );
 
@@ -111,7 +112,8 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
                path.startsWith("/core/professionals") ||
                path.startsWith("/core/locations") ||
                path.startsWith("/core/filter-options") ||
-               path.startsWith("/core/reviews");
+               path.startsWith("/core/reviews") ||
+               path.startsWith("/payment/subscriptions/plans");
     }
 
     @Override
