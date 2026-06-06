@@ -32,6 +32,8 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
             "/user/auth/login",
             "/user/auth/register",
             "/user/auth/verify",
+            "/user/auth/resend-verification",
+            "/user/auth/mfa/resend",
             "/user/auth/forgot-password",
             "/user/auth/reset-password",
             "/user/auth/refresh-token",
