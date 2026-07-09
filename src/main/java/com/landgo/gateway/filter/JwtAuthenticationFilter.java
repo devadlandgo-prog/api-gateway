@@ -42,6 +42,7 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
             "/user/professionals/",
             "/user/professionals/search",
             "/user/professionals/expertise-options",
+            "/user/newsletter/",
             "/core/listings",
             "/core/professionals",
             "/core/professionals/",
