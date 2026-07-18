@@ -131,7 +131,8 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
     }
 
     private boolean isPublicReadPath(String path) {
-        return path.startsWith("/core/listings") ||
+        return path.startsWith("/core/legal") ||
+               path.startsWith("/core/listings") ||
                path.startsWith("/core/professionals") ||
                path.startsWith("/core/locations") ||
                path.startsWith("/core/filter-options") ||
