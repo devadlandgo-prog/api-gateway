@@ -8,6 +8,14 @@ spring:
     name: api-gateway
   cloud:
     gateway:
+      httpclient:
+        connect-timeout: 5000
+        response-timeout: 30s
+        pool:
+          type: ELASTIC
+          max-idle-time: 15s
+          idle-timeout: 15s
+          max-life-time: 45s
       routes:
         # USER SERVICE ROUTES
         - id: user-service
