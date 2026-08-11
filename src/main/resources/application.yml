@@ -41,6 +41,14 @@ spring:
           filters:
             - RewritePath=/payment/(?<segment>.*),/${segment}
 
+        # ZONING SERVICE ROUTES
+        - id: zoning-service
+          uri: ${ZONING_SERVICE_URL:http://localhost:8000}
+          predicates:
+            - Path=/zoning/**
+          filters:
+            - RewritePath=/zoning/(?<segment>.*),/${segment}
+
         # HEALTH CHECK
         - id: api-ping
           uri: http://localhost:8080
