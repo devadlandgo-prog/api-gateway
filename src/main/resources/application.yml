@@ -48,6 +48,21 @@ spring:
             - Path=/zoning/**
           filters:
             - RewritePath=/zoning/(?<segment>.*),/${segment}
+          metadata:
+            # Overrides the global 30s httpclient response-timeout for this
+            # route only. Uploading a by-law PDF means streaming up to 50 MB
+            # through the gateway, writing it to S3 and counting its pages —
+            # comfortably past 30s on an ordinary connection. A 52 MB upload
+            # returned 504 here while the same file sent straight to
+            # zoning.landgo.ca reached the service and got the app's own
+            # "File exceeds 50MB limit". The documented 50 MB limit could not
+            # be reached through the gateway at all.
+            #
+            # 300s so the binding constraint is the service's 50 MB cap rather
+            # than a proxy timeout, which fails opaquely as a 504 with no clue
+            # about size.
+            response-timeout: 300000
+            connect-timeout: 5000
 
         # HEALTH CHECK
         - id: api-ping
